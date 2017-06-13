@@ -9,9 +9,14 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
+import com.amazonaws.auth.profile.ProfileCredentialsProvider;
+import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
+import com.amazonaws.services.s3.model.GetObjectRequest;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
+import com.amazonaws.services.s3.model.S3Object;
 import com.amazonaws.services.s3.transfer.TransferManager;
 import com.amazonaws.services.s3.transfer.Upload;
 
@@ -27,6 +32,16 @@ public class S3UploadService {
 	private static final String S3_PREFIX = "s3://";
 
 	private static final Logger logger = LoggerFactory.getLogger(S3UploadService.class);
+	
+	public InputStream downloadResouce(String bucket, String key)	throws IOException, InterruptedException {
+		logger.debug("Downloading specificaiton file from s3");
+		AmazonS3 s3Client = new AmazonS3Client(new DefaultAWSCredentialsProviderChain().getCredentials());        
+		S3Object object = s3Client.getObject(new GetObjectRequest(bucket, key));
+		InputStream objectData = object.getObjectContent();
+		logger.debug("ObjectData ="+objectData.hashCode());
+		return objectData;
+	}
+	
 
 	public String uploadResource(String fileName, InputStream inputStream, long size, boolean isTemp, String contentType, String bucketName)
 			throws IOException, InterruptedException {

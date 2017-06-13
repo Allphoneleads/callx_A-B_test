@@ -65,8 +65,13 @@ public class DefinitionManager {
 	@Value("${PROCTOR_DEFAULT_DEFINITION}")
 	private String defaultDefinition;
 	
-	@Value("${PROCTOR_DEFAULT_FILENAME}")
-	private String defaultFileName;
+	@Value("${PROCTOR_DEFAULT_DEFINATION_FILE_NAME}")
+	private String defaultDefinationFileName;
+	
+	
+	@Value("${PROCTOR_DEFAULT_SPECIFICATION_FILE_NAME}")
+	private String defaultSpecificationFileName;
+	
 	
 	@Value("${APL.S3_BUCKET}")
 	private String S3_BUCKET;
@@ -85,7 +90,7 @@ public class DefinitionManager {
 	private Random random = new Random();
 
 	public Proctor load(String definitionUrl, boolean forceReload) {
-		
+		InputStream specificationData = null;
 		Proctor proctor = proctorCache.get(definitionUrl);
 		if (proctor != null && !forceReload) {
 			logger.debug("reusing cached " + definitionUrl);
@@ -97,8 +102,11 @@ public class DefinitionManager {
 			HttpURLConnection.setFollowRedirects(true); // for demo purposes,
 														// allow Java to follow
 														// redirects
-			ProctorSpecification spec = ProctorUtils
-					.readSpecification(new File(defaultSpec));
+			
+			
+			specificationData =	s3UploadService.downloadResouce("assets-apl", "dev-routingspecification.json");
+			ProctorSpecification spec = ProctorUtils.readSpecification(specificationData);
+					//.readSpecification(new File(defaultSpec));
 			UrlProctorLoader loader = new UrlProctorLoader(spec, definitionUrl+ "?r=" + random.nextInt());
 			proctor = loader.doLoad();
 			logger.debug("loaded definition from " + definitionUrl);
@@ -106,6 +114,12 @@ public class DefinitionManager {
 		} catch (Throwable t) {
 			logger.error("Failed to load test spec/definition", t);
 			t.printStackTrace();
+		}finally {
+			try {
+				specificationData.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 		return proctor;
 	}
@@ -289,7 +303,7 @@ public class DefinitionManager {
 		}*/
 		
 		try {
-			String file_name = defaultFileName;
+			String file_name = defaultDefinationFileName;
 			Writer writer = new FileWriter(file_name);
 			Gson gson = new GsonBuilder().create();
 			gson.toJson(resultsMap, writer);
@@ -395,6 +409,24 @@ public class DefinitionManager {
 		} catch (IOException e) {
 			logger.debug("Error in Writing to JSON file :" + e);
 		}
+		
+		try {
+			String file_name = defaultSpecificationFileName;
+			Writer writer = new FileWriter(file_name);
+			Gson gson = new GsonBuilder().create();
+			gson.toJson(resultsMap, writer);
+			writer.close();
+			File file = new File(file_name);
+			InputStream objectData = new FileInputStream(file);
+			String aplS3Path = s3UploadService.uploadResource(file_name,objectData, file.length(), false, "application/json", S3_BUCKET);
+			logger.debug("Uploaded defination file :  https:" + aplS3Path);
+
+		} catch (IOException e) {
+			logger.debug("Error in Writing to JSON file :" + e);
+		} catch (InterruptedException e) {
+			logger.debug("Error in upload to JSON file :" + e);
+		}
+
 		return resultsMap;
 	}
 

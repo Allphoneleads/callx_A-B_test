@@ -1,0 +1,1 @@
+{"tests":{"autoinsurancebundle":{"fallbackvalue":-1,"buckets":{"inactive":-1,"oldalgo":0,"newlgo":1}},"autoinsurancebundleoffers":{"fallbackvalue":-1,"buckets":{"mediaalphainsured":112,"mediaalphauninsured":113,"inactive":-1}}},"providedContext":{"offerssize":"String","offersidasc":"String"}}
