@@ -15,11 +15,16 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.allphoneleads.api.domain.Campaign;
 import com.allphoneleads.api.domain.CampaignType;
@@ -250,7 +255,7 @@ public class DefinitionManager {
 				rangeOne.setLength(new BigDecimal(0.0));
 				ranges[rangValue] = rangeOne;
 				
-				allocation.setRule("${offersSize == '"+ size+"' && offersIdsAsc =='"+combi+"'}");
+				allocation.setRule("${offerssize == '"+ size+"' && offersidasc =='"+combi+"'}");
 				allocation.setRanges(ranges);
 				allocations[i] = allocation;
 				i=i+1;
@@ -259,6 +264,8 @@ public class DefinitionManager {
 
 			bucketsMap.put("version", new Integer(1));
 			bucketsMap.put("description", campaign.getDescription());
+			bucketsMap.put("rule", "${offerssize >= '2'}"); // new fied add today
+			                                               
 			bucketsMap.put("salt", campaign.getDescription());
 			bucketsMap.put("buckets", bucketsObjects);
 			bucketsMap.put("allocations", allocations);
@@ -403,6 +410,38 @@ public class DefinitionManager {
 		final ProctorResult result = groupsManager.determineBuckets(identifiers,offersSize,offerIdsAsc);
 		final RoutingSpecification groups = new RoutingSpecification(result);
 		return groups;
+	}
+	
+	public RoutingSpecification getRoutingGroupsTest(String definitionUrl,String callID, String offersSize, String offerIdsAsc) {
+		final Proctor proctor = load(definitionUrl, true);
+		final RoutingSpecificationManager groupsManager = new RoutingSpecificationManager(Suppliers.ofInstance(proctor));
+		final Identifiers identifiers = Identifiers.of(TestType.ACCOUNT, callID);
+		// final boolean allowForceGroups = true;
+		final ProctorResult result = groupsManager.determineBuckets(identifiers,offersSize,offerIdsAsc);
+		final RoutingSpecification groups = new RoutingSpecification(result);
+		return groups;
+	}
+	
+	private final String USER_AGENT = "Mozilla/5.0";
+	public int jenkinsBuildJob(String jobID) {
+		int statuscode = 500 ;
+		try {
+			String url = "http://chandan:ch1nd1n@52.24.56.190:8080/job/backend-dev-build/build";
+			HttpClient client = new DefaultHttpClient();
+			HttpPost post = new HttpPost(url);
+			// add header
+			post.setHeader("User-Agent", USER_AGENT);
+			HttpResponse response = client.execute(post);
+			System.out.println("\nSending 'POST' request to URL : " + url);
+			// System.out.println("Post parameters : " + post.getEntity());
+
+			statuscode = response.getStatusLine().getStatusCode();
+			System.out.println("Response Code : " + statuscode);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return statuscode;
+		
 	}
 
 }

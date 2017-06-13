@@ -16,18 +16,18 @@ import java.util.Map;
  * GENERATED source; do not edit directly
  */
 public class RoutingSpecificationContext {
-    private final String offersSize;
-    private final String offersIdsAsc;
+    private final String offerssize;
+    private final String offersidasc;
 
-    public RoutingSpecificationContext(final String offersSize, final String offersIdsAsc) {
-        this.offersSize = offersSize;
-        this.offersIdsAsc = offersIdsAsc;
+    public RoutingSpecificationContext(final String offerssize, final String offersidasc) {
+        this.offerssize = offerssize;
+        this.offersidasc = offersidasc;
     }
 
     // For builder use only
     private RoutingSpecificationContext() {
-        this.offersSize = Defaults.defaultValue(String.class);
-        this.offersIdsAsc = Defaults.defaultValue(String.class);
+        this.offerssize = Defaults.defaultValue(String.class);
+        this.offersidasc = Defaults.defaultValue(String.class);
     }
 
     private static final RoutingSpecificationContext DEFAULT = new RoutingSpecificationContext();
@@ -35,19 +35,19 @@ public class RoutingSpecificationContext {
         return DEFAULT;
     }
 
-    public String getOffersSize() {
-        return offersSize;
+    public String getOfferssize() {
+        return offerssize;
     }
 
-    public String getOffersIdsAsc() {
-        return offersIdsAsc;
+    public String getOffersidasc() {
+        return offersidasc;
     }
 
     @Nonnull
     public String toString() {
         return "RoutingSpecificationContext{" +
-               "offersSize='" + offersSize + "', " +
-               "offersIdsAsc='" + offersIdsAsc + '\'' +
+               "offerssize='" + offerssize + "', " +
+               "offersidasc='" + offersidasc + '\'' +
                '}';
     }
 
@@ -58,15 +58,15 @@ public class RoutingSpecificationContext {
         }
 
         return
-            Objects.equal(((RoutingSpecificationContext) obj).offersSize, offersSize) &&
-            Objects.equal(((RoutingSpecificationContext) obj).offersIdsAsc, offersIdsAsc);
+            Objects.equal(((RoutingSpecificationContext) obj).offerssize, offerssize) &&
+            Objects.equal(((RoutingSpecificationContext) obj).offersidasc, offersidasc);
     }
 
     @Override
     public int hashCode() {
         return Objects.hashCode(
-            this.offersSize, 
-            this.offersIdsAsc
+            this.offerssize, 
+            this.offersidasc
         );
     }
 
@@ -78,8 +78,8 @@ public class RoutingSpecificationContext {
     public ProctorResult getProctorResult(@Nonnull final RoutingSpecificationManager groupsManager,
                                           @Nonnull final Identifiers identifiers) {
         return groupsManager.determineBuckets(identifiers, 
-                                              offersSize,
-                                              offersIdsAsc);
+                                              offerssize,
+                                              offersidasc);
     }
 
     /**
@@ -91,8 +91,8 @@ public class RoutingSpecificationContext {
                                           @Nonnull final Identifiers identifiers,
                                           @Nonnull final Map<String, Integer> forcedGroups) {
         return groupsManager.determineBuckets(identifiers, forcedGroups, 
-                                              offersSize,
-                                              offersIdsAsc);
+                                              offerssize,
+                                              offersidasc);
     }
 
     public ProctorResult getProctorResult(@Nonnull final RoutingSpecificationManager groupsManager,
@@ -101,8 +101,8 @@ public class RoutingSpecificationContext {
                                           @Nonnull final Identifiers identifiers,
                                           final boolean allowForceGroups) {
         return groupsManager.determineBuckets(request, response, identifiers, allowForceGroups, 
-                                              offersSize,
-                                              offersIdsAsc);
+                                              offerssize,
+                                              offersidasc);
 
     }
 
@@ -110,27 +110,27 @@ public class RoutingSpecificationContext {
     public static Builder newBuilder() { return new Builder(); }
 
     public static class Builder {
-        private String offersSize = Defaults.defaultValue(String.class);
-        private String offersIdsAsc = Defaults.defaultValue(String.class);
+        private String offerssize = Defaults.defaultValue(String.class);
+        private String offersidasc = Defaults.defaultValue(String.class);
         private Builder() {}
 
         @Nonnull
-        public Builder setOffersSize(final String value) {
-            this.offersSize = value;
+        public Builder setOfferssize(final String value) {
+            this.offerssize = value;
             return this;
         }
 
         @Nonnull
-        public Builder setOffersIdsAsc(final String value) {
-            this.offersIdsAsc = value;
+        public Builder setOffersidasc(final String value) {
+            this.offersidasc = value;
             return this;
         }
 
         @Nonnull
         public RoutingSpecificationContext build() {
             return new RoutingSpecificationContext(
-                this.offersSize, 
-                this.offersIdsAsc
+                this.offerssize, 
+                this.offersidasc
             );
         }
     }

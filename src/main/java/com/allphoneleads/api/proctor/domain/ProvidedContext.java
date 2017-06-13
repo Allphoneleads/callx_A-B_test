@@ -2,33 +2,37 @@ package com.allphoneleads.api.proctor.domain;
 
 public class ProvidedContext {
 	
-	private String offersSize;
+	private String offerssize;
 
-    private String offersIdsAsc;
+    private String offersidasc;
     
     
 
-	public ProvidedContext(String offersSize, String offersIdsAsc) {
-		this.offersSize = offersSize;
-		this.offersIdsAsc = offersIdsAsc;
+	public ProvidedContext(String offerssize, String offersidasc) {
+		super();
+		this.offerssize = offerssize;
+		this.offersidasc = offersidasc;
 	}
 
-	public String getOffersSize() {
-		return offersSize;
+	public String getOfferssize() {
+		return offerssize;
 	}
 
-	public void setOffersSize(String offersSize) {
-		this.offersSize = offersSize;
+	public void setOfferssize(String offerssize) {
+		this.offerssize = offerssize;
 	}
 
-	public String getOffersIdsAsc() {
-		return offersIdsAsc;
+	public String getOffersidasc() {
+		return offersidasc;
 	}
 
-	public void setOffersIdsAsc(String offersIdsAsc) {
-		this.offersIdsAsc = offersIdsAsc;
+	public void setOffersidasc(String offersidasc) {
+		this.offersidasc = offersidasc;
 	}
+    
+    
 
+	
    
 
 }

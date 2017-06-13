@@ -23,8 +23,8 @@ public class RoutingSpecificationManager extends AbstractGroupsManager {
     private static final Map<String, String> PROVIDED_CONTEXT;
     static {
         final Map<String, String> providedContext = new LinkedHashMap<String, String>();
-        providedContext.put("offersSize", "String");
-        providedContext.put("offersIdsAsc", "String");
+        providedContext.put("offerssize", "String");
+        providedContext.put("offersidasc", "String");
         PROVIDED_CONTEXT = Collections.unmodifiableMap(providedContext);
     }
 
@@ -39,11 +39,11 @@ public class RoutingSpecificationManager extends AbstractGroupsManager {
      * @deprecated Use the one that takes a Map<TestType, String> instead
      */
     public ProctorResult determineBuckets(final TestType testType, final String identifier,
-                                    final String offersSize,
-                                    final String offersIdsAsc) {
+                                    final String offerssize,
+                                    final String offersidasc) {
         final Map<String, Object> context = new HashMap<String, Object>();
-        context.put("offersSize", offersSize);
-        context.put("offersIdsAsc", offersIdsAsc);
+        context.put("offerssize", offerssize);
+        context.put("offersidasc", offersidasc);
         return super.determineBucketsInternal(testType, identifier, context);
     }
 
@@ -53,11 +53,11 @@ public class RoutingSpecificationManager extends AbstractGroupsManager {
      * such as boxcar services.
      */
     public ProctorResult determineBuckets(final Identifiers identifiers,
-                                    final String offersSize,
-                                    final String offersIdsAsc) {
+                                    final String offerssize,
+                                    final String offersidasc) {
         final Map<String, Object> context = new HashMap<String, Object>();
-        context.put("offersSize", offersSize);
-        context.put("offersIdsAsc", offersIdsAsc);
+        context.put("offerssize", offerssize);
+        context.put("offersidasc", offersidasc);
         return super.determineBucketsInternal(identifiers, context);
     }
 
@@ -68,11 +68,11 @@ public class RoutingSpecificationManager extends AbstractGroupsManager {
      */
     public ProctorResult determineBuckets(final Identifiers identifiers,
                                             final Map<String, Integer> forcedGroups,
-                                    final String offersSize,
-                                    final String offersIdsAsc) {
+                                    final String offerssize,
+                                    final String offersidasc) {
         final Map<String, Object> context = new HashMap<String, Object>();
-        context.put("offersSize", offersSize);
-        context.put("offersIdsAsc", offersIdsAsc);
+        context.put("offerssize", offerssize);
+        context.put("offersidasc", offersidasc);
         return super.determineBucketsInternal(identifiers, context, forcedGroups);
     }
 
@@ -81,30 +81,30 @@ public class RoutingSpecificationManager extends AbstractGroupsManager {
      */
     public ProctorResult determineBuckets(final HttpServletRequest request, final HttpServletResponse response,
                                             final TestType testType, final String identifier, final boolean allowForcedGroups,
-                                            final String offersSize,
-                                            final String offersIdsAsc) {
+                                            final String offerssize,
+                                            final String offersidasc) {
         final Identifiers identifiers = new Identifiers(testType, identifier);
         return determineBuckets(request, response, identifiers, allowForcedGroups
-                , offersSize
-                , offersIdsAsc
+                , offerssize
+                , offersidasc
                 );
     }
 
     public ProctorResult determineBuckets(final HttpServletRequest request, final HttpServletResponse response,
                                             final Identifiers identifiers, final boolean allowForcedGroups,
-                                            final String offersSize,
-                                            final String offersIdsAsc) {
+                                            final String offerssize,
+                                            final String offersidasc) {
         final Map<String, Object> context = new HashMap<String, Object>();
-        context.put("offersSize", offersSize);
-        context.put("offersIdsAsc", offersIdsAsc);
+        context.put("offerssize", offerssize);
+        context.put("offersidasc", offersidasc);
         return super.determineBucketsInternal(request, response, identifiers, context, allowForcedGroups);
     }
 
     private static final Map<String, TestBucket> DEFAULT_BUCKET_VALUES = constructDefaultBucketValuesMap();
     private static Map<String, TestBucket> constructDefaultBucketValuesMap() {
         final Map<String, TestBucket> defaultBucketValues = new HashMap<String, TestBucket>();
-            defaultBucketValues.put("oldautoinsurance", new TestBucket("fallback", -1, "fallback value; something is broken", null));
-            defaultBucketValues.put("oldautoinsuranceoffers", new TestBucket("fallback", -1, "fallback value; something is broken", null));
+            defaultBucketValues.put("autoinsurancebundle", new TestBucket("fallback", -1, "fallback value; something is broken", null));
+            defaultBucketValues.put("autoinsurancebundleoffers", new TestBucket("fallback", -1, "fallback value; something is broken", null));
         return Collections.unmodifiableMap(defaultBucketValues);
     }
     @Override

@@ -177,7 +177,10 @@ public class AplUtils {
 	public static String LEAD_STATUS_NOT_ACTIVE = "Not Active";
 	
 	
-	
+	public static int oldAlgoCount = 0;
+	public static int newAlgoCount = 0;
+	public static int otherAlgoCount = 0;
+	public static Map<Integer, Integer> offersCount = new HashMap<>();
 
 
 	public static Date getNonExpiryDate() throws ParseException {
