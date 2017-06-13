@@ -396,13 +396,12 @@ public class DefinitionManager {
 
 		}
 		long endTime = System.currentTimeMillis();
-		logger.debug("Total time taken to build Specification Json :"
-				+ (endTime - startTime) + "ms");
+		logger.debug("Total time taken to build Specification Json :"+ (endTime - startTime) + "ms");
 		resultsMap.put("tests", campMap);
 		ProvidedContext context = new ProvidedContext("String", "String");
 		resultsMap.put("providedContext",context);
 		try {
-			Writer writer = new FileWriter("src/main/proctor/com/allphoneleads/api/proctor/RoutingSpecification.json");
+			Writer writer = new FileWriter(defaultSpec);
 			Gson gson = new GsonBuilder().create();
 			gson.toJson(resultsMap, writer);
 			writer.close();
