@@ -66,7 +66,7 @@ public class ABTestController {
 		
 		if(specificationResult == 200 && definationResult == 200 )
 		{
-			int jenkinsStatusCode  = definitionManager.jenkinsBuildJob("backend-dev-build");	
+			int jenkinsStatusCode  = definitionManager.jenkinsBuildJob("CallXABTestDev");	
 			if(jenkinsStatusCode == 201)
 				resultCode = 200;
 			else

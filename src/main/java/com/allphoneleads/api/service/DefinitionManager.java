@@ -458,7 +458,7 @@ public class DefinitionManager {
 	public int jenkinsBuildJob(String jobID) {
 		int statuscode = 500 ;
 		try {
-			String url = "http://chandan:ch1nd1n@52.24.56.190:8080/job/backend-dev-build/build";
+			String url = "http://chandan:ch1nd1n@52.24.56.190:8080/job/"+jobID+"/build";
 			HttpClient client = new DefaultHttpClient();
 			HttpPost post = new HttpPost(url);
 			// add header
