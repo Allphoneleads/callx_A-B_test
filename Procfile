@@ -1,1 +1,1 @@
-web: java -jar callxABTest.jar
+web: java -jar build/libs/callxABTest.jar
