@@ -157,7 +157,11 @@ public class ABTestController {
 		return abtestResults;
 	}
 	
-	
+	@RequestMapping(value = "/health", method = RequestMethod.GET)
+	public int  checkHealth() {
+		
+		return 200;
+	}
 
 
 }
