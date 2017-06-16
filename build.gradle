@@ -28,6 +28,7 @@ apply plugin: 'net.saliman.properties'
 apply plugin: 'org.hidetake.ssh'
 // Developer Plugins
 apply plugin: 'eclipse'
+apply plugin: 'war'
 
 mainClassName = 'com.allphoneleads.api.MainApplication'
 
