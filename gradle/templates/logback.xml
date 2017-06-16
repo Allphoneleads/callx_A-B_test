@@ -6,11 +6,11 @@
 
 	<appender name="ROLLING"
 		class="ch.qos.logback.core.rolling.RollingFileAppender">
-		<file>/var/log/abtest/abtest.log</file>
+		<file>/var/log/tomcat8/abtest.log</file>
 		<rollingPolicy
 			class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
 			<!-- rollover daily -->
-			<fileNamePattern>/var/log/abtest/abtest_%d{yyyy-MM-dd}.%i.log.gz
+			<fileNamePattern>/var/log/tomcat8/abtest_%d{yyyy-MM-dd}.%i.log.gz
 			</fileNamePattern>
 			<!-- each file should be at most 100MB, keep 60 days worth of history, 
 				but at most 20GB -->
