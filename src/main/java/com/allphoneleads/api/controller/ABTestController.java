@@ -43,7 +43,7 @@ public class ABTestController {
 
 
 	@RequestMapping(value = "/abtest/proctor/build-testmatrix", method = RequestMethod.GET)
-	public int buildABTestFiles() {
+	public int buildABTestFiles(@RequestParam(value = "jobid", required = false)String jobID) {
 		
 		int resultCode = 500;
 		int specificationResult = 500;
@@ -64,9 +64,9 @@ public class ABTestController {
 			logger.error("Somethign went wrong on building test matrix : Errors in building definaiton");
 		}
 		
-		if(specificationResult == 200 && definationResult == 200 )
+		if(specificationResult == 200 && definationResult == 200 && jobID !=null )
 		{
-			int jenkinsStatusCode  = definitionManager.jenkinsBuildJob("CallXABTestDev");	
+			int jenkinsStatusCode  = definitionManager.jenkinsBuildJob(jobID);	
 			if(jenkinsStatusCode == 201)
 				resultCode = 200;
 			else
