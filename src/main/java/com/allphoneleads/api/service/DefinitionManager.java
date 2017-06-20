@@ -463,11 +463,11 @@ public class DefinitionManager {
 			// add header
 			post.setHeader("User-Agent", USER_AGENT);
 			HttpResponse response = client.execute(post);
-			System.out.println("\nSending 'POST' request to URL : " + url);
+			logger.debug("\nSending 'POST' request to URL : " + url);
 			// System.out.println("Post parameters : " + post.getEntity());
 
 			statuscode = response.getStatusLine().getStatusCode();
-			System.out.println("Response Code : " + statuscode);
+			logger.debug("Response Code : " + statuscode);
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
