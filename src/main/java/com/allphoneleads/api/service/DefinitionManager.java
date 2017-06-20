@@ -104,7 +104,7 @@ public class DefinitionManager {
 														// redirects
 			
 			
-			specificationData =	s3UploadService.downloadResouce("assets-apl", "dev-routingspecification.json");
+			specificationData =	s3UploadService.downloadResouce("assets-apl", defaultSpecificationFileName);
 			ProctorSpecification spec = ProctorUtils.readSpecification(specificationData);
 					//.readSpecification(new File(defaultSpec));
 			UrlProctorLoader loader = new UrlProctorLoader(spec, definitionUrl+ "?r=" + random.nextInt());
