@@ -89,13 +89,14 @@ public class ABTestController {
 	@RequestMapping(value = "/abtest/result/campaign", method = RequestMethod.GET)
 	public ABTestReults getABTestResultByCampaign(@RequestParam(value = "callid", required = false) String callID,
 			@RequestParam(value = "offerscount", required = false) String offersCount,
-			@RequestParam(value = "offeridsasc", required = false) String offersIdsAsc) {
+			@RequestParam(value = "offeridsasc", required = false) String offersIdsAsc,
+			@RequestParam(value = "campaign", required = false) String campaign) {
 		
 		logger.debug("Executing /abtest/result/campaign");
 		final RoutingSpecification campaignGroups = definitionManager.getRoutingGroups(default_definition, callID, null, null);
 		Method[] campaignMethods = RoutingSpecification.class.getMethods();
 		logger.debug("Methods="+ campaignMethods.length);
-		String campaignName = "autoinsurancebundle";
+		String campaignName = campaign;
 		int campaignTestResult = AplUtils.getMehtodValueFromSpecicificaiton(campaignName, campaignMethods,campaignGroups);
 		
 		ABTestReults abtestResults = new ABTestReults();
@@ -108,7 +109,7 @@ public class ABTestController {
 			final RoutingSpecification offerGroups = definitionManager.getRoutingGroups(default_definition, callID, offersCount, offersIdsAsc );
 			Method[] offerMethods = RoutingSpecification.class.getMethods();
 			logger.debug("Methods="+ offerMethods.length);
-			String campaignOfferName = "autoinsurancebundleoffers";
+			String campaignOfferName = campaign+"offers";
 			int offerTestResult = AplUtils.getMehtodValueFromSpecicificaiton(campaignOfferName,offerMethods, offerGroups);
 			logger.debug("offerTestResult="+ offerTestResult);
 			abtestResults.setOfferresult(offerTestResult);
