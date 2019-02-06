@@ -97,7 +97,7 @@ public class DefinitionManager {
 			return proctor;
 		}
 		try {
-			logger.debug(" specification= " + defaultSpec);
+			logger.debug(" specification= " + System.getProperty("user.dir")+defaultSpec);
 			logger.debug(" definition= " + defaultDefinition);
 			HttpURLConnection.setFollowRedirects(true); // for demo purposes,
 														// allow Java to follow
@@ -400,8 +400,9 @@ public class DefinitionManager {
 		resultsMap.put("tests", campMap);
 		ProvidedContext context = new ProvidedContext("String", "String");
 		resultsMap.put("providedContext",context);
+		logger.debug("User Directory : {}", System.getProperty("user.dir"));
 		try {
-			Writer writer = new FileWriter(defaultSpec);
+			Writer writer = new FileWriter(System.getProperty("user.dir")+defaultSpec);
 			Gson gson = new GsonBuilder().create();
 			gson.toJson(resultsMap, writer);
 			writer.close();
