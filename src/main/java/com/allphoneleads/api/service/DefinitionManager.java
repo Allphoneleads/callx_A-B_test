@@ -164,9 +164,9 @@ public class DefinitionManager {
 			allocation.setRule(null);
 			
 			BigDecimal newAlgoPercen =  new BigDecimal(campaign.getAbtestPercentage()).divide(new BigDecimal(100));
-			System.out.println("new ALGO ="+newAlgoPercen);
+			logger.debug("new ALGO : {}", newAlgoPercen);
 			BigDecimal oldAlgoPercen =  new BigDecimal(100-campaign.getAbtestPercentage()).divide(new BigDecimal(100));
-			System.out.println("old ALGO ="+oldAlgoPercen);
+			logger.debug("old ALGO : {}", oldAlgoPercen);
 			for (int i = -1; i < 2; i++) {
 				Ranges rangeOne = new Ranges();
 				rangeOne.setBucketValue(i);
@@ -231,17 +231,17 @@ public class DefinitionManager {
 			Allocations[] allocations = new Allocations[buaf.offerAllocationList.size()];
 			int i =0;
 			for (String  combi : buaf.offerAllocationList) {
-				System.out.println("cobination ="+combi);
+				logger.debug("cobination : {}",combi);
 				Allocations allocation = new Allocations();
 				
 				// allocation based on EPC
 				BigDecimal totalEpc = getTotalEPC(offers);
 				BigDecimal sumUpIndividualEpc = BigDecimal.ZERO;
-				System.out.println("Total EPC ="+totalEpc.toString());
+				logger.debug("Total EPC : {}", totalEpc.toString());
 				int rangValue = 0;
 				
 				List<ProctorOfferData> filteredOffers = filterAllocationOffers(offers,combi );
-				System.out.println("size of offers ="+filteredOffers.size());
+				logger.debug("size of offers : {}", filteredOffers.size());
 				Ranges[] ranges = new Ranges[filteredOffers.size()+1];
 				int size = filteredOffers.size();
 				for (ProctorOfferData offer : filteredOffers) {
@@ -314,9 +314,9 @@ public class DefinitionManager {
 			logger.debug("Uploaded defination file :  https:" + aplS3Path);
 
 		} catch (IOException e) {
-			logger.debug("Error in Writing to JSON file :" + e);
+			logger.error("Error in Writing to JSON file :", e);
 		} catch (InterruptedException e) {
-			logger.debug("Error in upload to JSON file :" + e);
+			logger.error("Error in upload to JSON file :", e);
 		}
 
 		return resultsMap;
@@ -336,7 +336,7 @@ public class DefinitionManager {
 		BigDecimal totalEPC = BigDecimal.ZERO;
 		for (ProctorOfferData proctorOfferData : offers) {
 			totalEPC=totalEPC.add(proctorOfferData.getEpc());
-			System.out.println("offer epc ="+proctorOfferData.getEpc());
+			logger.debug("offer epc : {}", proctorOfferData.getEpc());
 		}
 		return totalEPC;
 	}
@@ -406,7 +406,7 @@ public class DefinitionManager {
 			gson.toJson(resultsMap, writer);
 			writer.close();
 		} catch (IOException e) {
-			logger.debug("Error in Writing to JSON file :" + e);
+			logger.error("Error in Writing to JSON file :", e);
 		}
 		
 		try {
@@ -421,9 +421,9 @@ public class DefinitionManager {
 			logger.debug("Uploaded defination file :  https:" + aplS3Path);
 
 		} catch (IOException e) {
-			logger.debug("Error in Writing to JSON file :" + e);
+			logger.error("Error in Writing to JSON file :", e);
 		} catch (InterruptedException e) {
-			logger.debug("Error in upload to JSON file :" + e);
+			logger.error("Error in upload to JSON file :", e);
 		}
 
 		return resultsMap;

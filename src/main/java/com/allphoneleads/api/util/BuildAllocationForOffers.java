@@ -3,9 +3,15 @@ package com.allphoneleads.api.util;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.allphoneleads.api.service.DefinitionManager;
+
 public class BuildAllocationForOffers {
 
-	
+	private static final Logger logger = LoggerFactory.getLogger(BuildAllocationForOffers.class);
+
 	/*
 	 * arr[] ---> Input Array data[] ---> Temporary array to store current
 	 * combination start & end ---> Staring and Ending indexes in arr[] index
@@ -67,9 +73,9 @@ public class BuildAllocationForOffers {
 			printCombination(args, n, r);
 
 		}
-		System.out.println("total allocation for a given :"+offerAllocationList.size());
+		logger.debug("total allocation for a given : {}", offerAllocationList.size());
 		for (String combi : offerAllocationList) {
-			System.out.println(combi);
+			logger.debug("{}", combi);
 		}
 	}
 
